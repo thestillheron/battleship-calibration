@@ -1,13 +1,15 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace TheStillHeron.BattleshipCalibration.Api.Domain;
 
 public class TurretCalibrationSettings
 {
-    public bool Valid {
+    public bool Valid
+    {
         get;
         private set;
-    }
+    } = true;
 
     public IList<string> Errors { get; set; } = [];
 
@@ -16,6 +18,7 @@ public class TurretCalibrationSettings
     public required int Caliber { get; set; }
 
     [Required]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public required TurretLocation Location { get; set; }
 
     [Required]

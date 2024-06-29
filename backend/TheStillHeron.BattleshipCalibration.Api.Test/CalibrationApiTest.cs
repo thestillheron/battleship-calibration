@@ -8,6 +8,40 @@ namespace TheStillHeron.BattleshipCalibration.Api.Test;
 public class ApiTests : SubcutaneousTest
 {
     [Test]
+    public async Task ProvidingValidSettingsBeforeRunningCalibrationProducesTotalRotation()
+    {
+        // Arrange
+        var request = new TurretCalibrationSettings
+        {
+            Caliber = 120,
+            Rotations = 2,
+            RotationStartPoint = 0,
+            RotationEndPoint = 180,
+            Location = TurretLocation.Bow,
+        };
+
+        // Act
+        var (_, statusCode, rawResponse) = await PutRequest<TurretCalibrationSettings, object>(
+            "api/calibration/settings",
+            request
+        );
+
+        Assert.That(statusCode, Is.EqualTo(HttpStatusCode.OK));
+
+        var (response, runStatusCode, _) = await PostRequest<object, RunCalibrationResponse>(
+            "api/calibration/run",
+            new { }
+        );
+
+        Assert.Multiple(() =>
+        {
+            // Assert
+            Assert.That(runStatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(response!.TotalRotation, Is.EqualTo(720));
+        });
+    }
+
+    [Test]
     public async Task AnInvalidCalibrationSettingsRequestReturnsBadRequest()
     {
         var request = new TurretCalibrationSettings
@@ -89,7 +123,9 @@ public class ApiTests : SubcutaneousTest
             Assert.That(statusCode, Is.EqualTo(HttpStatusCode.BadRequest));
             Assert.That(
                 rawResponse,
-                Does.Contain("The field RotationEndPoint must be greater than the RotationStartPoint.")
+                Does.Contain(
+                    "The field RotationEndPoint must be greater than the RotationStartPoint."
+                )
             );
         });
     }

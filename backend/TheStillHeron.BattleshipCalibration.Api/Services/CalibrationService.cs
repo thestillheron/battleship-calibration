@@ -25,6 +25,7 @@ public class CalibrationService(ILogger<CalibrationService> logger)
             };
         }
 
+        _calibrationSettings = request;
         _logger.LogInformation("Calibration settings have been updated. New settings: {_calibrationSettings}", _calibrationSettings);
 
         return new PutCalibrationSettingsResponse
