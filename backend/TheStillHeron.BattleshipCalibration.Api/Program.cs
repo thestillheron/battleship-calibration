@@ -1,3 +1,5 @@
+using TheStillHeron.BattleshipCalibration.Api.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +9,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<CalibrationService>();
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
@@ -38,3 +41,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// This line is necessary for us to specifically target this Program class
+// in our subcutaneous tests.
+public partial class Program { }

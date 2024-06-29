@@ -8,7 +8,7 @@ function App() {
     async function getForecast() {
       let result: Response;
       try {
-        result = await fetch("http://localhost:5242/BattleshipCalibration");
+        result = await fetch("http://localhost:5242/api/calibration");
       } catch (error) {
         console.log(error);
         throw error;
@@ -16,7 +16,7 @@ function App() {
       setForecastValues(await result!.json());
     }
     getForecast();
-  });
+  }, []);
 
   return (
     <div className="App">
