@@ -1,0 +1,6 @@
+@TheStillHeron.BattleshipCalibration.Api_HostAddress = http://localhost:5242
+
+GET {{TheStillHeron.BattleshipCalibration.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
