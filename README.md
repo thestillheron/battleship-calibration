@@ -1,5 +1,23 @@
 # Coding Challenge - Turret Calibration
 
+## Run Instructions
+
+Ensure you have the following dependencies installed:
+
+* .Net 8 SDK
+* NodeJS v20
+
+Then carry out the following instructions on a command line
+
+1. Navigate to the frontend directory and run `npm install`
+1. Then run `npm start`
+1. In a separate command line window navigate to the backend directory
+1. Run `dotnet test` to see the unit tests and subcutaneous tests pass
+1. Run `dotnet run --project TheStillHeron.BattleshipCalibration.Api/TheStillHeron.BattleshipCalibration.Api.csproj`
+1. Note that for the above command, if you are in a windows environment the slashes may be reversed
+1. Note that the frontend should be running on port 3000 and the backend should be running on port 5242. They may default to other ports if you already have applications using those ports. The frontend relies on port 5242, so please make sure that's available.
+1. Navigate to http://localhost:3000 (NOT https) to view the solution.
+
 ## Notes
 
 The code in [SubcutaneousTest.cs](./TheStillHeron.BattleshipCalibration.Api.Test/TestWebApplicationFactory.cs) is my own code, but I didn't hand-write it for this code challenge. It's one of several snippets I keep on hand. I would consider it overkill for a project of this size, but because I had the snippet at hand I didn't mind spending the "effort" to implement subcutaneous testing for this project. I have trimmed it down from the full implementation to just what I need for this challenge.
